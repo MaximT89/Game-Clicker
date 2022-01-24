@@ -1,4 +1,4 @@
-package com.boxma.gameclickergod.presentation.views
+package com.boxma.gameclickergod.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

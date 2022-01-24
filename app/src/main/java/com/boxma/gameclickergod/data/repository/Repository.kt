@@ -1,38 +1,23 @@
 package com.boxma.gameclickergod.data.repository
 
-import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
-import com.boxma.gameclickergod.data.utils.SpriteUtils
-import java.util.ArrayList
+import com.boxma.gameclickergod.data.storage.BitmapStorage
+import com.boxma.gameclickergod.data.storage.SharedPrefProfileStatsStorage
 
-class Repository(private val context: Context) {
+class Repository(
+    private val bitmapStorage: BitmapStorage,
+    private val sharedPrefProfileStatsStorage: SharedPrefProfileStatsStorage) {
 
     fun goblinFrames(): List<BitmapDrawable> {
+        return bitmapStorage.goblinFrames()
+    }
 
-        val frames = mutableListOf<BitmapDrawable>()
-        val listBitmap = mutableListOf<Bitmap>()
+    fun score(): Int {
+        return sharedPrefProfileStatsStorage.loadScore()
+    }
 
-        listBitmap.add(SpriteUtils.getBitmapFromAssets(context, "hurt/0_Goblin_Idle_000.png"))
-        listBitmap.add(SpriteUtils.getBitmapFromAssets(context, "hurt/0_Goblin_Hurt_000.png"))
-        listBitmap.add(SpriteUtils.getBitmapFromAssets(context, "hurt/0_Goblin_Hurt_001.png"))
-        listBitmap.add(SpriteUtils.getBitmapFromAssets(context, "hurt/0_Goblin_Hurt_002.png"))
-        listBitmap.add(SpriteUtils.getBitmapFromAssets(context, "hurt/0_Goblin_Hurt_003.png"))
-        listBitmap.add(SpriteUtils.getBitmapFromAssets(context, "hurt/0_Goblin_Hurt_004.png"))
-        listBitmap.add(SpriteUtils.getBitmapFromAssets(context, "hurt/0_Goblin_Hurt_005.png"))
-        listBitmap.add(SpriteUtils.getBitmapFromAssets(context, "hurt/0_Goblin_Hurt_006.png"))
-        listBitmap.add(SpriteUtils.getBitmapFromAssets(context, "hurt/0_Goblin_Hurt_007.png"))
-        listBitmap.add(SpriteUtils.getBitmapFromAssets(context, "hurt/0_Goblin_Hurt_008.png"))
-        listBitmap.add(SpriteUtils.getBitmapFromAssets(context, "hurt/0_Goblin_Hurt_009.png"))
-        listBitmap.add(SpriteUtils.getBitmapFromAssets(context, "hurt/0_Goblin_Hurt_010.png"))
-        listBitmap.add(SpriteUtils.getBitmapFromAssets(context, "hurt/0_Goblin_Hurt_011.png"))
-        listBitmap.add(SpriteUtils.getBitmapFromAssets(context, "hurt/0_Goblin_Idle_000.png"))
-
-        for(item in listBitmap){
-            frames.add(BitmapDrawable(context.resources, item))
-        }
-
-        return frames
+    fun score(value: Int){
+        sharedPrefProfileStatsStorage.saveScore(value)
     }
 
 }

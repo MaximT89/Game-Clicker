@@ -1,4 +1,4 @@
-package com.boxma.gameclickergod.data.utils
+package com.boxma.gameclickergod.utils
 
 import android.content.Context
 import android.content.res.AssetManager
