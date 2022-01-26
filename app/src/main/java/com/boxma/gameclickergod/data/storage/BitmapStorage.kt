@@ -3,9 +3,13 @@ package com.boxma.gameclickergod.data.storage
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import com.boxma.gameclickergod.presentation.views.gameScreen.GameFragment
 import com.boxma.gameclickergod.utils.SpriteUtils
+import javax.inject.Inject
 
-class BitmapStorage(private val context: Context) {
+class BitmapStorage @Inject constructor(
+    private val context: Context,
+) {
 
     fun goblinFrames(): List<BitmapDrawable> {
 

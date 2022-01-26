@@ -1,60 +1,103 @@
 package com.boxma.gameclickergod.presentation.views.gameScreen
 
+import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import com.boxma.gameclickergod.R
-import com.boxma.gameclickergod.data.repository.Repository
-import com.boxma.gameclickergod.data.storage.BitmapStorage
-import com.boxma.gameclickergod.data.storage.SharedPrefProfileStatsStorage
 import com.boxma.gameclickergod.databinding.FragmentGameBinding
-import com.boxma.gameclickergod.presentation.ViewModelFactory
+import com.boxma.gameclickergod.utils.SpriteUtils
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class GameFragment : Fragment(R.layout.fragment_game) {
 
-    lateinit var binding: FragmentGameBinding
-    private lateinit var bitmapStorage: BitmapStorage
-    private lateinit var repository: Repository
-    private lateinit var gameViewModel: GameViewModel
-    private lateinit var viewModelFactory: ViewModelFactory
-    private lateinit var sharedPrefProfileStatsStorage: SharedPrefProfileStatsStorage
+    private lateinit var binding: FragmentGameBinding
+
+    private val gameViewModel: GameViewModel by viewModels()
+    private lateinit var enemyAnimator: AnimationDrawable
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentGameBinding.bind(view)
 
-        setupViewModel()
-        setupScene()
+        init()
         setupObservers()
+        setupAnimators()
+        createEnemy()
 
         binding.clickField.setOnClickListener {
-            gameViewModel.score(1)
+            startAnimation(enemyAnimator)
+            damageToEnemy()
         }
     }
 
-    private fun setupScene() {
-        gameViewModel.score()
+    private fun init() {
+        binding.reloadBtn.setOnClickListener {
+            gameViewModel.setCurrentLevel(1)
+            gameViewModel.setScore(1)
+            gameViewModel.generateNewEnemy()
+        }
     }
 
-    private fun setupViewModel() {
-        bitmapStorage = BitmapStorage(requireActivity())
-        sharedPrefProfileStatsStorage = SharedPrefProfileStatsStorage(requireActivity())
-        repository = Repository(bitmapStorage, sharedPrefProfileStatsStorage)
-        viewModelFactory = ViewModelFactory(repository)
-        gameViewModel = ViewModelProvider(requireActivity(), viewModelFactory)[GameViewModel::class.java]
+    private fun damageToEnemy() = gameViewModel.increaseTotalDamage()
+
+    private fun reloadAnimation(animator: AnimationDrawable) {
+        stopAnimationRoot(animator)
+        startAnimationRoot(animator)
+    }
+
+    private fun startAnimation(animator: AnimationDrawable) = reloadAnimation(animator)
+    private fun startAnimationRoot(animator: AnimationDrawable) = animator.start()
+
+    private fun stopAnimationRoot(animator: AnimationDrawable) {
+        if (animator.isRunning) {
+            animator.stop()
+        }
+    }
+
+    private fun createEnemy() {
+        gameViewModel.getEnemyBitmap()
+    }
+
+    private fun setupAnimators() {
+        enemyAnimator = AnimationDrawable()
+            .apply {
+                isOneShot = true
+                setVisible(true, true)
+            }
     }
 
     private fun setupObservers() {
-        gameViewModel.score.observe(this, {
-            binding.score.text = it.toString()
-        })
-    }
 
+        with(gameViewModel) {
+
+            score.observe(this@GameFragment, {
+                binding.textScore.text = it.toString()
+            })
+
+            tempEnemyHp.observe(this@GameFragment, {
+                with(binding) {
+                    enemyHpProgressBar.progress = it
+                    enemyHpText.text = it.toString()
+                }
+            })
+
+            enemyHp.observe(this@GameFragment, {
+                binding.enemyHpProgressBar.max = it
+            })
+
+            score.observe(this@GameFragment, {
+                binding.textScore.text = it.toString()
+            })
+
+            enemyBitmap.observe(this@GameFragment, {
+                setupAnimators()
+                SpriteUtils.fillAnimation(enemyAnimator, it, 40)
+                binding.imageViewEnemy.background = enemyAnimator
+            })
+
+        }
+    }
 }
