@@ -1,16 +1,15 @@
 package com.boxma.gameclickergod.di
 
 import android.content.Context
-import com.boxma.gameclickergod.App
 import com.boxma.gameclickergod.data.repository.Repository
 import com.boxma.gameclickergod.data.storage.BitmapStorage
 import com.boxma.gameclickergod.data.storage.PrefsStatsStorage
 import com.boxma.gameclickergod.domain.GenerateEnemyHpUseCase
 import com.boxma.gameclickergod.domain.GenerateScoreUseCase
+import com.boxma.gameclickergod.domain.GetRandomEnemyUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
@@ -50,5 +49,11 @@ class MainModule {
     @Provides
     fun provideGenerateScoreUseCase(repository: Repository): GenerateScoreUseCase {
         return GenerateScoreUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetRandomEnemyUseCase(repository: Repository): GetRandomEnemyUseCase {
+        return GetRandomEnemyUseCase(repository)
     }
 }

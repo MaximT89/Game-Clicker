@@ -6,12 +6,14 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.AnimationDrawable
 import android.graphics.drawable.BitmapDrawable
+import kotlinx.coroutines.*
 import java.io.InputStream
 
 object SpriteUtils {
 
     // Получение картинки из assets
     fun getBitmapFromAssets(context: Context, filepath: String): Bitmap {
+
         val assetManager: AssetManager = context.assets
         var istr: InputStream? = null
         var bitmap: Bitmap? = null
@@ -33,7 +35,7 @@ object SpriteUtils {
     fun fillAnimation(
         animationDrawable: AnimationDrawable,
         listBitmap: List<BitmapDrawable>,
-        duration: Int
+        duration: Int,
     ) {
         for (item in listBitmap) {
             animationDrawable.addFrame(item, duration)

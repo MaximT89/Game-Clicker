@@ -7,5 +7,6 @@ import javax.inject.Inject
 class GenerateEnemyHpUseCase @Inject constructor(
     private val repository: Repository,
 ) {
-    fun execute(): Int = repository.currentWorldLevel() * Constants.ratioEnemyHp
+//    fun execute(): Int = repository.currentWorldLevel() * Constants.ratioEnemyHp
+    fun execute(): Int =  3
 }

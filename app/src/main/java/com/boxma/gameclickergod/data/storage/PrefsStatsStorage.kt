@@ -25,8 +25,7 @@ class PrefsStatsStorage @Inject constructor(
     fun savePlayerDamage(value: Int) = preferences.edit().putInt(PLAYER_DAMAGE, value).apply()
 
     fun loadCurrentWorldLevel(): Int = preferences.getInt(CURRENT_WORLD_LEVEL, 1)
-    fun saveCurrentWorldLevel(value: Int) =
-        preferences.edit().putInt(CURRENT_WORLD_LEVEL, value).apply()
+    fun saveCurrentWorldLevel(value: Int) = preferences.edit().putInt(CURRENT_WORLD_LEVEL, value).apply()
 
     fun loadMaxWorldLevel(): Int = preferences.getInt(MAX_WORLD_LEVEL, 1)
     fun saveMaxWorldLevel(value: Int) = preferences.edit().putInt(MAX_WORLD_LEVEL, value).apply()

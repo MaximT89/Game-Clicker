@@ -5,10 +5,13 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.boxma.gameclickergod.R
 import com.boxma.gameclickergod.databinding.FragmentGameBinding
 import com.boxma.gameclickergod.utils.SpriteUtils
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class GameFragment : Fragment(R.layout.fragment_game) {
@@ -27,17 +30,23 @@ class GameFragment : Fragment(R.layout.fragment_game) {
         setupAnimators()
         createEnemy()
 
+
         binding.clickField.setOnClickListener {
             startAnimation(enemyAnimator)
             damageToEnemy()
+
         }
     }
 
     private fun init() {
         binding.reloadBtn.setOnClickListener {
-            gameViewModel.setCurrentLevel(1)
-            gameViewModel.setScore(1)
-            gameViewModel.generateNewEnemy()
+            with(gameViewModel) {
+                setCurrentLevel(1)
+                setScore(1)
+                lifecycleScope.launch {
+                    generateNewEnemy()
+                }
+            }
         }
     }
 

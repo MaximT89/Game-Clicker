@@ -11,6 +11,7 @@ class Repository @Inject constructor(
 ) {
 
     fun goblinFrames(): List<BitmapDrawable> = bitmapStorage.goblinFrames()
+    fun orcFrames(): List<BitmapDrawable> = bitmapStorage.orcFrames()
 
     fun score(): Int = prefsStatsStorage.loadScore()
     fun score(value: Int) = prefsStatsStorage.saveScore(value)
