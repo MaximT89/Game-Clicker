@@ -26,17 +26,11 @@ class MainModule {
 
     @Singleton
     @Provides
-    fun providePrefsStatsStorage(@ApplicationContext context: Context): PrefsStatsStorage {
-        return PrefsStatsStorage(context)
-    }
-
-    @Singleton
-    @Provides
     fun provideRepository(
-        bitmapStorage: BitmapStorage,
-        prefsStatsStorage: PrefsStatsStorage,
+        @ApplicationContext context: Context,
+        bitmapStorage: BitmapStorage
     ): Repository {
-        return Repository(bitmapStorage, prefsStatsStorage)
+        return Repository(context, bitmapStorage)
     }
 
     @Singleton

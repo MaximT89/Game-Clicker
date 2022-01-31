@@ -29,10 +29,13 @@ class GameViewModel @Inject constructor(
     var currentLevel = MutableLiveData(repository.currentWorldLevel())
     var enemyBitmap = MutableLiveData<List<BitmapDrawable>>()
 
-    fun setScore(value: Int) = repository.score(value)
+    fun setScore(value: Int) {
+        repository.score(value)
+        score.value = repository.score()
+    }
+
     fun setCurrentLevel(value: Int) = repository.currentWorldLevel(value)
 
-    fun score(): Int = repository.score()
     private fun score(value: Int) {
         score.value = score.value!! + value
         repository.score(score.value!!)
@@ -53,9 +56,7 @@ class GameViewModel @Inject constructor(
         }
     }
 
-    private fun increaseLevel() =
-        repository.currentWorldLevel(value = repository.currentWorldLevel() + 1)
-
+    private fun increaseLevel() = repository.currentWorldLevel(value = repository.currentWorldLevel() + 1)
     private fun increaseScore() = score(scoreUseCase.scoreCurrentLevel())
 
     fun generateNewEnemy() {
@@ -66,11 +67,7 @@ class GameViewModel @Inject constructor(
     }
 
     fun getEnemyBitmap() {
-
         enemyBitmap.value = enemyUseCase.execute()
-
-
-//        enemyBitmap.value = repository.goblinFrames()
     }
 
     private fun cleanEnemyHp() {

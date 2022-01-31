@@ -12,7 +12,7 @@ import java.io.InputStream
 object SpriteUtils {
 
     // Получение картинки из assets
-    fun getBitmapFromAssets(context: Context, filepath: String): Bitmap {
+    private fun getBitmapFromAssets(context: Context, filepath: String): Bitmap {
 
         val assetManager: AssetManager = context.assets
         var istr: InputStream? = null
@@ -30,6 +30,9 @@ object SpriteUtils {
         return bitmap!!
     }
 
+    // Наполняем картинками Bitmap
+    fun bitmapToListBitmap(listBitmap : MutableList<Bitmap>, context: Context, filepath: String) =
+        listBitmap.add(getBitmapFromAssets(context, filepath))
 
     // Наполняет аниматор картинками и задает скорость анимации
     fun fillAnimation(
@@ -37,9 +40,7 @@ object SpriteUtils {
         listBitmap: List<BitmapDrawable>,
         duration: Int,
     ) {
-        for (item in listBitmap) {
-            animationDrawable.addFrame(item, duration)
-        }
+        for (item in listBitmap) animationDrawable.addFrame(item, duration)
     }
 
 }

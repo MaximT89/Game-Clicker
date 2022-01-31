@@ -44,9 +44,7 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
             with(gameViewModel) {
                 setCurrentLevel(1)
                 setScore(1)
-                lifecycleScope.launch {
-                    generateNewEnemy()
-                }
+                generateNewEnemy()
             }
         }
     }
