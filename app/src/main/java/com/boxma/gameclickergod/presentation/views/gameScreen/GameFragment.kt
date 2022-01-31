@@ -33,18 +33,22 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
         setupAnimators()
         createEnemy()
 
-        binding.clickField.setOnClickListener {
-            startAnimation(enemyAnimator)
-            damageToEnemy()
-        }
+
     }
 
     private fun init() {
-        binding.reloadBtn.setOnClickListener {
-            with(gameViewModel) {
-                setCurrentLevel(1)
-                setScore(1)
-                generateNewEnemy()
+        with(binding) {
+            clickField.setOnClickListener {
+                startAnimation(enemyAnimator)
+                damageToEnemy()
+            }
+
+            reloadBtn.setOnClickListener {
+                with(gameViewModel) {
+                    setCurrentLevel(1)
+                    setScore(1)
+                    generateNewEnemy()
+                }
             }
         }
     }
@@ -104,6 +108,4 @@ class GameFragment : BaseFragment<FragmentGameBinding>() {
 
         }
     }
-
-
 }

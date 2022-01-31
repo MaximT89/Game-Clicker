@@ -3,7 +3,6 @@ package com.boxma.gameclickergod.di
 import android.content.Context
 import com.boxma.gameclickergod.data.repository.Repository
 import com.boxma.gameclickergod.data.storage.BitmapStorage
-import com.boxma.gameclickergod.data.storage.PrefsStatsStorage
 import com.boxma.gameclickergod.domain.GenerateEnemyHpUseCase
 import com.boxma.gameclickergod.domain.GenerateScoreUseCase
 import com.boxma.gameclickergod.domain.GetRandomEnemyUseCase
@@ -20,34 +19,23 @@ class MainModule {
 
     @Singleton
     @Provides
-    fun provideBitmapStorage(@ApplicationContext context: Context): BitmapStorage {
-        return BitmapStorage(context)
-    }
+    fun provideBitmapStorage(@ApplicationContext context: Context) = BitmapStorage(context)
 
     @Singleton
     @Provides
-    fun provideRepository(
-        @ApplicationContext context: Context,
-        bitmapStorage: BitmapStorage
-    ): Repository {
-        return Repository(context, bitmapStorage)
-    }
+    fun provideRepository(@ApplicationContext context: Context, bitmapStorage: BitmapStorage) =
+        Repository(context, bitmapStorage)
 
     @Singleton
     @Provides
-    fun provideGenerateEnemyHpUseCase(repository: Repository): GenerateEnemyHpUseCase {
-        return GenerateEnemyHpUseCase(repository)
-    }
+    fun provideGenerateEnemyHpUseCase(repository: Repository) = GenerateEnemyHpUseCase(repository)
 
     @Singleton
     @Provides
-    fun provideGenerateScoreUseCase(repository: Repository): GenerateScoreUseCase {
-        return GenerateScoreUseCase(repository)
-    }
+    fun provideGenerateScoreUseCase(repository: Repository) = GenerateScoreUseCase(repository)
 
     @Singleton
     @Provides
-    fun provideGetRandomEnemyUseCase(repository: Repository): GetRandomEnemyUseCase {
-        return GetRandomEnemyUseCase(repository)
-    }
+    fun provideGetRandomEnemyUseCase(repository: Repository) = GetRandomEnemyUseCase(repository)
+
 }
