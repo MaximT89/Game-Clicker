@@ -58,8 +58,4 @@ class BitmapStorage @Inject constructor(
 
         return frames
     }
-
-
-
-
 }

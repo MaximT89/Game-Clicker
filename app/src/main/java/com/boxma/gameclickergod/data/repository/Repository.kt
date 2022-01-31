@@ -16,16 +16,22 @@ class Repository @Inject constructor(
 ) {
     private val prefs = PrefsStatsStorage.defaultPref(context)
 
-    fun goblinFrames(): List<BitmapDrawable> = bitmapStorage.goblinFrames()
-    fun orcFrames(): List<BitmapDrawable> = bitmapStorage.orcFrames()
+    fun goblinFrames() = bitmapStorage.goblinFrames()
+    fun orcFrames() = bitmapStorage.orcFrames()
 
     fun score(): Int = prefs.score
-    fun score(value: Int) { prefs.score = value }
+    fun score(value: Int) {
+        prefs.score = value
+    }
 
     fun playerDamage(): Int = prefs.playerDamage
-    fun playerDamage(value: Int) { prefs.playerDamage = value}
+    fun playerDamage(value: Int) {
+        prefs.playerDamage = value
+    }
 
     fun currentWorldLevel(): Int = prefs.currentWorldLevel
-    fun currentWorldLevel(value: Int) { prefs.currentWorldLevel = value}
+    fun currentWorldLevel(value: Int) {
+        prefs.currentWorldLevel = value
+    }
 
 }

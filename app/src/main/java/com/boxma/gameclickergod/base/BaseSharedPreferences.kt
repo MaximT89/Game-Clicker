@@ -9,16 +9,14 @@ interface BaseSharedPreferences {
         private const val APP_PREF = "app_prefs"
     }
 
-    fun SharedPreferences.Editor.put(pair: Pair<String, Any>) {
-        val key = pair.first
+    fun SharedPreferences.Editor.put(pair: Pair<String, Any>): SharedPreferences.Editor =
         when (val value = pair.second) {
-            is String -> putString(key, value)
-            is Int -> putInt(key, value)
-            is Boolean -> putBoolean(key, value)
-            is Long -> putLong(key, value)
-            is Float -> putFloat(key, value)
+            is String -> putString(pair.first, value)
+            is Int -> putInt(pair.first, value)
+            is Boolean -> putBoolean(pair.first, value)
+            is Long -> putLong(pair.first, value)
+            is Float -> putFloat(pair.first, value)
             else -> error("Only primitive types can be stored in SharedPreferences")
-        }
     }
 
     fun SharedPreferences.editMe(operation: (SharedPreferences.Editor) -> Unit) =

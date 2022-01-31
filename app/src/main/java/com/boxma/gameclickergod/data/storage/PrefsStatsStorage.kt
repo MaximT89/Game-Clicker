@@ -13,32 +13,21 @@ object PrefsStatsStorage : BaseSharedPreferences {
 
     var SharedPreferences.score
         get() = getInt(PROFILE_SCORE, 0)
-        set(value) = editMe {
-            it.put(PROFILE_SCORE to value)
-        }
+        set(value) = editMe { it.put(PROFILE_SCORE to value) }
 
     var SharedPreferences.playerDamage
         get() = getInt(PLAYER_DAMAGE, 1)
-        set(value) = editMe {
-            it.put(PLAYER_DAMAGE to value)
-        }
-
+        set(value) = editMe { it.put(PLAYER_DAMAGE to value) }
 
     var SharedPreferences.currentWorldLevel
         get() = getInt(CURRENT_WORLD_LEVEL, 1)
-        set(value) = editMe {
-            it.put(CURRENT_WORLD_LEVEL to value)
-        }
+        set(value) = editMe { it.put(CURRENT_WORLD_LEVEL to value) }
 
     var SharedPreferences.maxWorldLevel
         get() = getInt(MAX_WORLD_LEVEL, 1)
-        set(value) = editMe {
-            it.put(MAX_WORLD_LEVEL to value)
-        }
+        set(value) = editMe { it.put(MAX_WORLD_LEVEL to value) }
 
     var SharedPreferences.clearValues
         get() = run { }
-        set(value) = editMe {
-            it.clear()
-        }
+        set(value) = editMe { it.clear() }
 }
